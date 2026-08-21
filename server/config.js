@@ -4,8 +4,12 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import dotenv from "dotenv";
 
-const here = path.dirname(fileURLToPath(import.meta.url));
-export const projectRoot = path.resolve(here, "..");
+const sourceUrl = import.meta?.url;
+const here = sourceUrl ? path.dirname(fileURLToPath(sourceUrl)) : process.cwd();
+const bundledRoot = process.env.LAMBDA_TASK_ROOT || process.cwd();
+export const projectRoot = process.env.NETLIFY === "true"
+  ? bundledRoot
+  : path.resolve(here, "..");
 
 function loadEnvFile(filePath) {
   if (!fs.existsSync(filePath)) return;
