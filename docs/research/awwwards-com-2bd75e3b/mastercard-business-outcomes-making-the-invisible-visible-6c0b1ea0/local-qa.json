@@ -1,0 +1,43 @@
+{
+  "targetUrl": "http://127.0.0.1:4317/",
+  "sourceImage": true,
+  "viewports": {
+    "desktop": {
+      "viewportWidth": 1440,
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "skillCount": 4,
+      "selectedCount": 4,
+      "systemCount": "04 / 04",
+      "sourceVisible": true,
+      "generateEnabled": true,
+      "apiState": "gpt-image-2 · liublog123com.com",
+      "installDialogOpen": true
+    },
+    "tablet": {
+      "viewportWidth": 768,
+      "documentWidth": 768,
+      "bodyWidth": 768,
+      "skillCount": 4,
+      "selectedCount": 4,
+      "systemCount": "04 / 04",
+      "sourceVisible": true,
+      "generateEnabled": true,
+      "apiState": "gpt-image-2 · liublog123com.com",
+      "installDialogOpen": true
+    },
+    "mobile": {
+      "viewportWidth": 390,
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "skillCount": 4,
+      "selectedCount": 4,
+      "systemCount": "04 / 04",
+      "sourceVisible": true,
+      "generateEnabled": true,
+      "apiState": "gpt-image-2 · liublog123com.com",
+      "installDialogOpen": true
+    }
+  },
+  "consoleErrors": []
+}

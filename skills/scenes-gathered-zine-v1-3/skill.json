@@ -1,0 +1,9 @@
+{
+  "id": "scenes-gathered-zine-v1-3",
+  "name": "Gathered Scenes",
+  "description": "真实照片锚点、手撕纤维边缘与大块源生抽象场景共同组成的纸感海报。",
+  "version": "1.3.0",
+  "accent": "#d6402f",
+  "preservation": "high",
+  "defaultSize": "1024x1792"
+}

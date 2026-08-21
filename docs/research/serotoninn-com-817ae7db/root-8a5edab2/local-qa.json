@@ -1,0 +1,47 @@
+{
+  "targetUrl": "http://127.0.0.1:4317/",
+  "sourceImage": false,
+  "viewports": {
+    "desktop": {
+      "viewportWidth": 1440,
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "skillCount": 4,
+      "selectedCount": 4,
+      "systemCount": "04 / 04",
+      "sourceVisible": false,
+      "generateEnabled": false,
+      "apiState": "gpt-image-2 · liublog123com.com",
+      "installDialogOpen": true
+    },
+    "tablet": {
+      "viewportWidth": 768,
+      "documentWidth": 768,
+      "bodyWidth": 768,
+      "skillCount": 4,
+      "selectedCount": 4,
+      "systemCount": "04 / 04",
+      "sourceVisible": false,
+      "generateEnabled": false,
+      "apiState": "gpt-image-2 · liublog123com.com",
+      "installDialogOpen": true
+    },
+    "mobile": {
+      "viewportWidth": 390,
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "skillCount": 4,
+      "selectedCount": 4,
+      "systemCount": "04 / 04",
+      "sourceVisible": false,
+      "generateEnabled": false,
+      "apiState": "gpt-image-2 · liublog123com.com",
+      "installDialogOpen": true
+    }
+  },
+  "consoleErrors": [
+    "desktop: Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-z06bgpl4G8looGnvSKre21RDpkMPYwXygzWws47gsmU='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+    "tablet: Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-z06bgpl4G8looGnvSKre21RDpkMPYwXygzWws47gsmU='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+    "mobile: Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-z06bgpl4G8looGnvSKre21RDpkMPYwXygzWws47gsmU='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+  ]
+}

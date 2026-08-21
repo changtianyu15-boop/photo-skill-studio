@@ -1,0 +1,26 @@
+{
+  "name": "photo-skill-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Local photo-to-editorial image studio with an extensible skill library.",
+  "scripts": {
+    "dev": "node --watch server/index.js",
+    "start": "node server/index.js",
+    "test": "node --test",
+    "qa:local": "node scripts/qa-local.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "adm-zip": "^0.6.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "lucide": "^1.31.0",
+    "multer": "^2.2.0"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.62.1"
+  }
+}

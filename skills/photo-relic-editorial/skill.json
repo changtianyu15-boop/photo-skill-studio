@@ -1,0 +1,9 @@
+{
+  "id": "photo-relic-editorial",
+  "name": "Photo Relic",
+  "description": "保留真实照片，并在下方生成来源于照片的现代版画记忆遗迹。",
+  "version": "1.0.0",
+  "accent": "#a45a32",
+  "preservation": "high",
+  "defaultSize": "1024x1792"
+}

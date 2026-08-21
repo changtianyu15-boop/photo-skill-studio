@@ -1,0 +1,9 @@
+{
+  "id": "gc-minimal-zine-poster-v0-3",
+  "name": "Minimal Zine",
+  "description": "大面积纸张留白、小型照片事件和单一高饱和色的独立杂志海报。",
+  "version": "0.3.1",
+  "accent": "#2157d5",
+  "preservation": "high",
+  "defaultSize": "1024x1792"
+}

@@ -1,0 +1,251 @@
+- link "Courses":
+  - /url: /academy-plan?utm_source=alert
+- strong: The Creative Pass
+- text: Watch all courses for just $12/month
+- strong: The Creative Pass
+- text: Watch all courses for just $12/month
+- strong: The Creative Pass
+- text: Watch all courses for just $12/month
+- strong: The Creative Pass
+- text: Watch all courses for just $12/month
+- strong: The Creative Pass
+- text: Watch all courses for just $12/month
+- strong: The Creative Pass
+- text: Watch all courses for just $12/month
+- strong: The Creative Pass
+- text: Watch all courses for just $12/month
+- strong: The Creative Pass
+- text: Watch all courses for just $12/month
+- strong: The Creative Pass
+- text: Watch all courses for just $12/month
+- strong: The Creative Pass
+- text: Watch all courses for just $12/month
+- strong: The Creative Pass
+- text: Watch all courses for just $12/month
+- banner:
+  - link "Awwwards":
+    - /url: /
+  - navigation:
+    - list:
+      - text: Explore
+      - link "Directory":
+        - /url: /directory/
+      - link "Academy New":
+        - /url: /academy/
+        - text: Academy
+        - generic: New
+      - link "Jobs":
+        - /url: /jobs/
+      - link "Market":
+        - /url: /market/
+  - button "Search":
+  - textbox "Search by Blog"
+  - strong: Log in
+  - strong: Sign Up
+  - link "Be Pro":
+    - /url: /pro
+  - link "Submit Website":
+    - /url: /submit/
+- list:
+- heading "Nov 19, 2025" [level=2]
+- heading "Mastercard Business Outcomes — Making the Invisible Visible" [level=1]
+- list:
+  - figure:
+    - link "KKPK":
+      - /url: /KKPK/
+      - strong: KKPK
+- figure:
+  - img "Mastercard Business Outcomes — Making the Invisible Visible"
+- heading "When Mastercard set out to create the Business Outcomes platform, the goal was not to build another corporate website. The mission was to reimagine how a global brand communicates its impact, not through product listings or service pages, but through stories of real transformation." [level=2]
+- iframe:
+  - strong: player.vimeo.com
+  - text: 的响应时间过长。
+- heading "1. Challenge" [level=2]
+- paragraph: The challenge was significant from day one. The brief included only a PDF summarizing six key outcomes, along with a few high-level brand materials and statistics. There was no content architecture, imagery, or narrative direction.
+- paragraph: "Yet Mastercard’s ambition was clear:"
+- blockquote:
+  - paragraph:
+    - emphasis: “We want this platform to become a tool for our teams. Something they can use to start conversations, inspire clients, and demonstrate how Mastercard helps businesses grow.”
+- paragraph: "The platform needed to bridge two worlds: a sales support tool for internal use, and an open storytelling experience for external audiences. It had to communicate Mastercard’s role not as a card issuer, but as a strategic growth partner helping businesses innovate, scale, and thrive."
+- paragraph: Above all, it needed to make the invisible visible, turning abstract capabilities into experiences that people could see, feel, and understand.
+- heading "2. Concept" [level=2]
+- paragraph: "At the heart of the project was a simple narrative idea: Start from Mastercard’s global business perspective, then guide the user deeper into specific, tangible outcomes, with real examples of transformation happening across industries."
+- paragraph: "This “macro-to-micro” structure mirrored Mastercard’s philosophy: a company operating on a global scale while creating local, human impact."
+- paragraph: The idea of making the invisible visible became the creative thread linking every layer of the experience. As users scrolled through the site, they moved from a strategic overview of Mastercard’s capabilities to the behind-the-scenes realities of how those outcomes take shape in the real world.
+- iframe:
+  - strong: player.vimeo.com
+  - text: 的响应时间过长。
+- generic: Core concept.
+- paragraph: Key Experience Principles
+- list:
+  - listitem: Dynamic, outcome-based navigation with its own narrative arc
+  - listitem: Immersive 3D scenes that bring abstract services to life
+  - listitem: Screen capture functionality for Mastercard sales teams to reuse content
+  - listitem: Personalization logic guiding business visitors toward relevant outcomes
+- paragraph: UX Phase
+- iframe:
+  - strong: player.vimeo.com
+  - text: 的响应时间过长。
+- generic: Proof-of-concept video.
+- paragraph: "A proof-of-concept video was created during the UX phase to define the flow and behavior of the immersive experience. It demonstrated:"
+- list:
+  - listitem: The transition from macro to micro storytelling
+  - listitem: Core interaction principles for the 3D worlds
+- paragraph: Initially, the concept included fully 3D characters transitioning from filmed footage to digital environments. To balance visual fidelity, performance, and resources, the team adopted an alternate approach, projecting 2D character images onto 3D planes.
+- paragraph: "The result was an intuitive, elegant, and human structure: a storytelling platform disguised as a digital tool."
+- heading "3. Look & Feel" [level=2]
+- paragraph: "The visual journey began with Mastercard’s brand guidelines. The goal was to go beyond them: to translate the brand’s energy and vision into an immersive, emotional digital universe."
+- paragraph: The site’s design was guided by three principles:clarity, depth, and presence.
+- paragraph: While Mastercard’s palette and geometry provided the foundation, the team sought to elevate these familiar codes through spatial design, motion, and interactivity.
+- paragraph: At this stage, all 3D elements were placeholders carefully selected to reflect the final creative intent. They helped the Mastercard team visualize how the finished 3D environments would look and feel while the 3D designer worked on the final assets. The creative intent was to make the experience feel unmistakably Mastercard, yet fresh and exploratory.
+- iframe:
+  - strong: player.vimeo.com
+  - text: 的响应时间过长。
+- generic: Overview of the different design screens and design specs.
+- paragraph: Each outcome section became its own world, an abstract landscape representing a specific capability. The interface was kept deliberately minimal to let the 3D environments and case studies take center stage.
+- paragraph: Scroll-based storytelling created rhythm and immersion, guiding visitors from video to 3D to content seamlessly. Subtle parallax and microinteractions added moments of delight without distracting from the story.
+- paragraph: "The tone of the interface was confident and premium, echoing Mastercard’s trusted global presence while expressing the curiosity of a brand looking toward the future. Every design choice, from typography to spacing, served a single purpose: to make complex ideas feel effortless."
+- heading "4.Content Production" [level=2]
+- paragraph: If design was the visible layer, content was the foundation, and one of the most challenging parts of the project.
+- paragraph: Structuring the Story
+- paragraph: At the start, Mastercard had no structured editorial content. Only a PDF of six outcomes, scattered case studies, and a few business insights.
+- paragraph: "The team built a scalable content framework using a “funnel of discovery” approach:"
+- list:
+  - listitem: "Global narrative: What Mastercard stands for"
+  - listitem: "Outcome level: How Mastercard enables progress"
+  - listitem: "Case level: Specific examples of transformation"
+- figure "Content map.":
+  - link "Content map":
+    - /url: https://assets.awwwards.com/awards/gallery/2025/11/mc-cs-interior-image01.jpg
+    - img "Content map"
+  - generic: Content map.
+- paragraph: This macro-to-micro model turned fragmented information into a logical and navigable story.
+- paragraph: Curating Case Studies
+- paragraph: Each outcome came with multiple potential stories. The team analyzed, selected, and refined these into concise, outcome-focused narratives. Every case study's goal was to be clear, actionable, and emotionally resonant.
+- iframe:
+  - strong: player.vimeo.com
+  - text: 的响应时间过长。
+- generic: Overview of all the case study’s content.
+- paragraph: Sourcing Visuals
+- paragraph: Mastercard’s internal image library was a mix of treasure and trash. Hundreds of photos and videos and clips were reviewed to find those that matched each narrative. Color correction, framing, and toning were applied meticulously to unify the visual language and align it with the platform’s overall mood.
+- iframe:
+  - strong: player.vimeo.com
+  - text: 的响应时间过长。
+- generic: Early exploration of the visual narrative for the landing page, with planned color correction adjustments for the intro video.
+- paragraph: Creating the Outcome Videos
+- paragraph: Each outcome opened with a short video introducing the theme before transitioning into the 3D environment.
+- paragraph: With no existing footage and a limited budget, six short narratives were created around relatable protagonists (a business owner, a customer, or security expert) each representing a facet of Mastercard’s ecosystem.
+- iframe:
+  - strong: player.vimeo.com
+  - text: 的响应时间过长。
+- generic: Six short video briefs introducing the people, stories, and outcomes that shape each Mastercard world.
+- paragraph: These videos acted as narrative bridges, blending reality into the 3D world and symbolizing the shift from visible to invisible.
+- heading "5.3D & Interactivity" [level=2]
+- paragraph: One of the project’s defining features was the creation of six custom 3D environments, each designed to visualize a Mastercard outcome through metaphor, form, and motion.
+- paragraph: Design Language
+- paragraph: "Each scene began as a sketch exploration based on Mastercard’s geometry: circles, arcs, and cylinders. These elements became the DNA of the 3D worlds: recognizably Mastercard, yet open to different moods and meanings."
+- paragraph: Every scene balanced abstraction and emotion. They were complex enough but clear enough to understand at a glance.
+- iframe:
+  - strong: player.vimeo.com
+  - text: 的响应时间过长。
+- generic: 3D process and iterations for the different interactive scenes.
+- paragraph: Visual Execution
+- paragraph: "Materials were tuned for premium realism: metallics, translucency, and soft diffusion. Transparent surfaces posed technical challenges in WebGL, requiring optimization and compositing to preserve both performance and visual fidelity."
+- iframe:
+  - strong: player.vimeo.com
+  - text: 的响应时间过长。
+- generic: Building and iterating the WebGL scenes with finely tuned parameters to match the final 3D renders.
+- paragraph: Each environment became a signature identity piece within a cohesive visual system that embodied Mastercard’s innovation-driven DNA.
+- heading "6.Conclusion" [level=2]
+- paragraph: The Mastercard Business Outcomes platform transforms a complex, service-based offering into a clear and emotionally engaging narrative.
+- paragraph: By merging editorial clarity, 3D immersion, and interactivity, the platform repositions Mastercard as a partner in progress, showing how technology, data, and trust translate into real impact.
+- iframe:
+  - strong: player.vimeo.com
+  - text: 的响应时间过长。
+- text: Building and iterating the WebGL landing scene with finely tuned parameters to match the final 3D renders.
+- link "Try it live.":
+  - /url: https://chrsmsln24-lrr-mstrcrd.deno.dev/
+- paragraph: It’s both a storytelling platform and a working tool, bridging communication, education, and brand expression.
+- heading "Technologies" [level=2]
+- paragraph:
+  - text: "Frontend:"
+  - link "Nuxt":
+    - /url: https://nuxt.com
+  - text: ","
+  - link "Three.js":
+    - /url: https://threejs.org
+  - text: / WebGL,
+  - link "GSAP":
+    - /url: https://gsap.com
+  - text: ","
+  - link "Lenis":
+    - /url: https://lenis.darkroom.engineering
+  - text: "Tools: Blender, Figma, After Effects, Photoshop, Illustrator"
+  - text: "Performance: Dynamic asset loading, adaptive resolution, GPU-based rendering"
+- heading "Company Info" [level=2]
+- paragraph:
+  - link "KKPK":
+    - /url: https://www.awwwards.com/KKPK/
+  - text: is a creative production studio specialized in digital storytelling, brand expression, and experiential design. Helping brands turn abstract ideas into meaningful, human experiences.
+- paragraph:
+  - link "Little Red Robot":
+    - /url: https://www.awwwards.com/LittleRedRobot/
+  - text: is an agency that partners with ambitious brands. From strategy and brand identity to cutting-edge web, XR, and campaign production, they blend technique with creative vision.
+- link "Awwwards home page":
+  - /url: /
+- contentinfo:
+  - paragraph:
+  - list:
+    - link "Websites":
+      - /url: /websites/
+    - link "Collections":
+      - /url: /collections/search/
+    - link "Elements":
+      - /url: /elements/
+  - list:
+    - link "Academy":
+      - /url: /academy/
+    - link "Jobs":
+      - /url: /jobs/search/
+    - link "Market":
+      - /url: /market/
+  - list:
+    - link "Directory":
+      - /url: /directory/search/
+    - link "Conferences":
+      - /url: https://conference.awwwards.com
+  - list:
+    - link "FAQs":
+      - /url: /faqs/
+    - link "About Us":
+      - /url: /about-us/
+    - link "Contact Us":
+      - /url: /contact-us/
+  - list:
+    - link "Cookies Policy":
+      - /url: /cookies-policy/
+    - link "Legal Terms":
+      - /url: /terms/
+    - link "Privacy Policy":
+      - /url: /privacy-policy/
+  - list:
+    - strong: "Connect:"
+    - link "Instagram":
+      - /url: https://www.instagram.com/awwwards
+    - link "LinkedIn":
+      - /url: https://www.linkedin.com/company/awwwards
+    - link "Twitter":
+      - /url: https://twitter.com/awwwards
+    - link "Facebook":
+      - /url: https://www.facebook.com/awwwards
+    - link "YouTube":
+      - /url: https://www.youtube.com/awwwardstv
+    - link "TikTok":
+      - /url: https://www.tiktok.com/@awwwards.com
+    - link "Pinterest":
+      - /url: https://www.pinterest.es/awwwards/
+- paragraph:
+  - text: This website uses cookies to ensure you get the best experience on our website.
+  - link "Cookies Policy":
+    - /url: /cookies-policy/
+- generic: GOT IT

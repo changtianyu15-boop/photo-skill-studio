@@ -1,0 +1,32 @@
+{
+  "scrollInitial": {
+    "scrollY": 0,
+    "style": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "transform": "none",
+      "boxShadow": "none",
+      "position": "static"
+    }
+  },
+  "ctaInitial": {
+    "color": "rgb(255, 255, 255)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "transform": "matrix(1, 0, 0, 1, 0, 0)",
+    "transition": "all"
+  },
+  "scrollAfter700": {
+    "scrollY": 0,
+    "style": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "transform": "none",
+      "boxShadow": "none",
+      "position": "static"
+    }
+  },
+  "ctaHover": {
+    "color": "rgb(255, 255, 255)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "transform": "matrix(1, 0, 0, 1, 0, 0)",
+    "transition": "all"
+  }
+}
