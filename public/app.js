@@ -7,6 +7,7 @@ const state = {
   running: false,
   activeGenerations: 0,
   runFailed: false,
+  apiConfigured: false,
 };
 
 const elements = {
@@ -49,6 +50,45 @@ const resultStatusLabels = {
   success: "READY",
   error: "FAILED",
 };
+
+const staticSkillCatalog = [
+  {
+    id: "gc-minimal-zine-poster-v0-3",
+    name: "Minimal Zine",
+    description: "大面积纸张留白、小型照片事件和单一高饱和色的独立杂志海报。",
+    version: "0.3.1",
+    accent: "#2157d5",
+    preservation: "high",
+    defaultSize: "1024x1792",
+  },
+  {
+    id: "photo-abstract-editorial",
+    name: "Photo Abstract",
+    description: "忠实照片与无纹理象牙色抽象记忆面板组成的干净编辑作品。",
+    version: "1.0.0",
+    accent: "#557689",
+    preservation: "high",
+    defaultSize: "1024x1792",
+  },
+  {
+    id: "photo-relic-editorial",
+    name: "Photo Relic",
+    description: "保留真实照片，并在下方生成来源于照片的现代版画记忆遗迹。",
+    version: "1.0.0",
+    accent: "#a45a32",
+    preservation: "high",
+    defaultSize: "1024x1792",
+  },
+  {
+    id: "scenes-gathered-zine-v1-3",
+    name: "Gathered Scenes",
+    description: "真实照片锚点、手撕纤维边缘与大块源生抽象场景共同组成的纸感海报。",
+    version: "1.3.0",
+    accent: "#d6402f",
+    preservation: "high",
+    defaultSize: "1024x1792",
+  },
+];
 
 // The narrative layout may omit legacy status controls; detached fallbacks keep
 // the data flow alive without making those controls mandatory.
@@ -93,6 +133,7 @@ async function readJson(response) {
 async function loadHealth() {
   try {
     const payload = await readJson(await fetch("/api/health"));
+    state.apiConfigured = Boolean(payload.configured);
     if (elements.systemModel) elements.systemModel.textContent = payload.model || "IMAGE";
     if (elements.apiState) elements.apiState.className = `api-state ${payload.configured ? "ready" : "error"}`;
     const apiMessage = elements.apiState?.querySelector("span:last-child");
@@ -100,17 +141,24 @@ async function loadHealth() {
       ? `${payload.model} · ${payload.upstream}`
       : "接口未配置";
   } catch {
+    state.apiConfigured = false;
     if (!elements.apiState) return;
     if (elements.apiState) elements.apiState.className = "api-state error";
     if (!elements.apiState.querySelector("span:last-child")) return;
     elements.apiState.querySelector("span:last-child").textContent = "后端未连接";
   }
+  updateSelectionUi();
 }
 
 async function loadSkills({ preserveSelection = false } = {}) {
   const previous = new Set(state.selected);
-  const payload = await readJson(await fetch("/api/skills"));
-  state.skills = payload.skills;
+  try {
+    const payload = await readJson(await fetch("/api/skills"));
+    if (!Array.isArray(payload.skills)) throw new Error("Skill 目录响应无效。");
+    state.skills = payload.skills;
+  } catch {
+    state.skills = staticSkillCatalog;
+  }
   state.selected = new Set(
     preserveSelection
       ? state.skills.filter((skill) => previous.has(skill.id)).map((skill) => skill.id)
@@ -173,7 +221,7 @@ function updateSelectionUi() {
     elements.generateLabel.textContent = hasBrackets ? label : `[ ${label} ]`;
   }
   elements.toggleAll.textContent = count === state.skills.length ? "取消全选" : "全部选择";
-  elements.generateButton.disabled = !state.file || count === 0 || state.running;
+  elements.generateButton.disabled = !state.file || count === 0 || state.running || !state.apiConfigured;
 }
 
 function setFile(file) {
