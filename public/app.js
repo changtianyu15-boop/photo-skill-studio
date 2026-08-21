@@ -51,6 +51,7 @@ const elements = {
   backToUpload: document.querySelector("#backToUpload"),
   continueToGenerate: document.querySelector("#continueToGenerate"),
   backToSkills: document.querySelector("#backToSkills"),
+  skillsStage: document.querySelector("#skillsStage"),
 };
 
 const resultStatusLabels = {
@@ -158,6 +159,64 @@ function showFlowStep(step, { scroll = true } = {}) {
 
 function syncFlowLayout() {
   showFlowStep(state.activeFlowStep, { scroll: false });
+}
+
+let selectionGesture = null;
+
+function selectionAreaPoint(event, area) {
+  const bounds = area.getBoundingClientRect();
+  return { x: event.clientX - bounds.left, y: event.clientY - bounds.top };
+}
+
+function updateSelectionBox(event) {
+  if (!selectionGesture || event.pointerId !== selectionGesture.pointerId) return;
+  const point = selectionAreaPoint(event, selectionGesture.area);
+  const left = Math.min(selectionGesture.start.x, point.x);
+  const top = Math.min(selectionGesture.start.y, point.y);
+  const width = Math.abs(point.x - selectionGesture.start.x);
+  const height = Math.abs(point.y - selectionGesture.start.y);
+  selectionGesture.moved ||= width > 8 || height > 8;
+  Object.assign(selectionGesture.box.style, {
+    left: `${left}px`,
+    top: `${top}px`,
+    width: `${width}px`,
+    height: `${height}px`,
+  });
+}
+
+function finishSelectionBox(event) {
+  if (!selectionGesture || event.pointerId !== selectionGesture.pointerId) return;
+  const gesture = selectionGesture;
+  updateSelectionBox(event);
+  if (gesture.moved) {
+    const box = gesture.box.getBoundingClientRect();
+    const selected = new Set();
+    for (const card of elements.skillGrid?.querySelectorAll(".skill-card") || []) {
+      const cardRect = card.getBoundingClientRect();
+      const overlaps = cardRect.left < box.right && cardRect.right > box.left
+        && cardRect.top < box.bottom && cardRect.bottom > box.top;
+      if (overlaps) selected.add(card.dataset.skillId);
+    }
+    state.selected = selected;
+    renderSkills();
+  }
+  try { gesture.area.releasePointerCapture(event.pointerId); } catch { /* pointer already released */ }
+  gesture.box.remove();
+  selectionGesture = null;
+}
+
+function beginSelectionBox(event) {
+  if (event.pointerType === "touch" || event.button !== 0 || selectionGesture) return;
+  if (event.target.closest?.("button, a, input, select, textarea, .skill-card")) return;
+  const area = elements.skillsStage;
+  if (!area) return;
+  const point = selectionAreaPoint(event, area);
+  const box = document.createElement("div");
+  box.className = "skill-selection-box";
+  area.append(box);
+  selectionGesture = { area, box, pointerId: event.pointerId, start: point, moved: false };
+  area.setPointerCapture(event.pointerId);
+  event.preventDefault();
 }
 
 async function readJson(response) {
@@ -466,6 +525,10 @@ elements.continueToSkills?.addEventListener("click", () => navigateFlowStep("ski
 elements.backToUpload?.addEventListener("click", () => showFlowStep("upload"));
 elements.continueToGenerate?.addEventListener("click", () => navigateFlowStep("generate"));
 elements.backToSkills?.addEventListener("click", () => showFlowStep("skills"));
+elements.skillsStage?.addEventListener("pointerdown", beginSelectionBox);
+elements.skillsStage?.addEventListener("pointermove", updateSelectionBox);
+elements.skillsStage?.addEventListener("pointerup", finishSelectionBox);
+elements.skillsStage?.addEventListener("pointercancel", finishSelectionBox);
 window.addEventListener("resize", syncFlowLayout, { passive: true });
 
 if (elements.systemMode) elements.systemMode.textContent = "PARALLEL";
