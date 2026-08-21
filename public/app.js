@@ -31,6 +31,13 @@ const elements = {
   resultsGrid: document.querySelector("#resultsGrid"),
   clearResults: document.querySelector("#clearResults"),
   openInstall: document.querySelector("#openInstall"),
+  openApiSettings: document.querySelector("#openApiSettings"),
+  apiDialog: document.querySelector("#apiDialog"),
+  apiKeyInput: document.querySelector("#apiKeyInput"),
+  apiBaseUrlInput: document.querySelector("#apiBaseUrlInput"),
+  apiModelInput: document.querySelector("#apiModelInput"),
+  saveApiSettings: document.querySelector("#saveApiSettings"),
+  clearApiSettings: document.querySelector("#clearApiSettings"),
   installDialog: document.querySelector("#installDialog"),
   packageInput: document.querySelector("#packageInput"),
   packageName: document.querySelector("#packageName"),
@@ -161,6 +168,56 @@ function syncFlowLayout() {
   showFlowStep(state.activeFlowStep, { scroll: false });
 }
 
+const apiStorageKeys = {
+  key: "photo-skill-api-key",
+  baseUrl: "photo-skill-api-base-url",
+  model: "photo-skill-api-model",
+};
+
+function readApiSettings() {
+  try {
+    return {
+      key: sessionStorage.getItem(apiStorageKeys.key) || "",
+      baseUrl: sessionStorage.getItem(apiStorageKeys.baseUrl) || "",
+      model: sessionStorage.getItem(apiStorageKeys.model) || "",
+    };
+  } catch {
+    return { key: "", baseUrl: "", model: "" };
+  }
+}
+
+function getApiHeaders() {
+  const settings = readApiSettings();
+  const headers = {};
+  if (settings.key) headers["X-Image-Api-Key"] = settings.key;
+  if (settings.baseUrl) headers["X-Image-Base-Url"] = settings.baseUrl;
+  if (settings.model) headers["X-Image-Model"] = settings.model;
+  return headers;
+}
+
+function fillApiSettingsForm() {
+  const settings = readApiSettings();
+  if (elements.apiKeyInput) elements.apiKeyInput.value = settings.key;
+  if (elements.apiBaseUrlInput) elements.apiBaseUrlInput.value = settings.baseUrl || "https://api.openai.com/v1";
+  if (elements.apiModelInput) elements.apiModelInput.value = settings.model || "gpt-image-2";
+}
+
+function clearApiSession() {
+  try {
+    Object.values(apiStorageKeys).forEach((key) => sessionStorage.removeItem(key));
+  } catch { /* sessionStorage may be unavailable in privacy mode */ }
+}
+
+function saveApiSession({ key, baseUrl, model }) {
+  try {
+    sessionStorage.setItem(apiStorageKeys.key, key);
+    sessionStorage.setItem(apiStorageKeys.baseUrl, baseUrl);
+    sessionStorage.setItem(apiStorageKeys.model, model);
+  } catch {
+    throw new Error("当前浏览器禁止会话存储，请关闭隐私拦截后重试。");
+  }
+}
+
 let selectionGesture = null;
 
 function selectionAreaPoint(event, area) {
@@ -227,13 +284,13 @@ async function readJson(response) {
 
 async function loadHealth() {
   try {
-    const payload = await readJson(await fetch("/api/health"));
+    const payload = await readJson(await fetch("/api/health", { headers: getApiHeaders() }));
     state.apiConfigured = Boolean(payload.configured);
     if (elements.systemModel) elements.systemModel.textContent = payload.model || "IMAGE";
     if (elements.apiState) elements.apiState.className = `api-state ${payload.configured ? "ready" : "error"}`;
     const apiMessage = elements.apiState?.querySelector("span:last-child");
     if (apiMessage) apiMessage.textContent = payload.configured
-      ? `${payload.model} · ${payload.upstream}`
+      ? `${payload.model} · ${payload.upstream}${payload.source === "session" ? " · 临时 Key" : ""}`
       : "接口未配置";
   } catch {
     state.apiConfigured = false;
@@ -423,7 +480,11 @@ async function generateOne(skill) {
   form.append("note", elements.noteInput?.value.trim() || "");
 
   try {
-    const payload = await readJson(await fetch("/api/generate", { method: "POST", body: form }));
+    const payload = await readJson(await fetch("/api/generate", {
+      method: "POST",
+      body: form,
+      headers: getApiHeaders(),
+    }));
     state.results.set(skill.id, { status: "success", ...payload.result });
   } catch (error) {
     state.results.set(skill.id, { status: "error", error: error.message });
@@ -503,6 +564,39 @@ elements.clearResults?.addEventListener("click", () => {
   renderResults();
 });
 elements.openInstall?.addEventListener("click", () => elements.installDialog?.showModal());
+elements.openApiSettings?.addEventListener("click", () => {
+  fillApiSettingsForm();
+  elements.apiDialog?.showModal();
+});
+elements.saveApiSettings?.addEventListener("click", async () => {
+  const key = elements.apiKeyInput?.value.trim() || "";
+  const baseUrl = elements.apiBaseUrlInput?.value.trim() || "";
+  const model = elements.apiModelInput?.value.trim() || "";
+  if (!key) return showToast("请输入 API key。");
+  try {
+    const parsed = new URL(baseUrl);
+    if (!["http:", "https:"].includes(parsed.protocol)) throw new Error();
+  } catch {
+    return showToast("请输入有效的 HTTP / HTTPS 接口地址。");
+  }
+  if (!model) return showToast("请输入图片模型名称。");
+  try {
+    saveApiSession({ key, baseUrl, model });
+    await loadHealth();
+    updateSelectionUi();
+    elements.apiDialog?.close();
+    showToast("临时图片接口已配置");
+  } catch (error) {
+    showToast(error.message);
+  }
+});
+elements.clearApiSettings?.addEventListener("click", async () => {
+  clearApiSession();
+  fillApiSettingsForm();
+  await loadHealth();
+  updateSelectionUi();
+  showToast("已清除本机会话 Key");
+});
 elements.packageInput?.addEventListener("change", () => {
   const file = elements.packageInput.files[0];
   elements.packageName.textContent = file?.name || "选择 ZIP 安装包";
@@ -532,6 +626,7 @@ elements.skillsStage?.addEventListener("pointercancel", finishSelectionBox);
 window.addEventListener("resize", syncFlowLayout, { passive: true });
 
 if (elements.systemMode) elements.systemMode.textContent = "PARALLEL";
+fillApiSettingsForm();
 setRunState("READY");
 syncFlowLayout();
 

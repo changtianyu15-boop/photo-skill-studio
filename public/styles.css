@@ -1948,3 +1948,80 @@ textarea,
     min-height: 212px;
   }
 }
+
+.api-dialog {
+  width: min(560px, calc(100% - 32px));
+  max-width: 560px;
+  padding: 0;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+}
+
+.api-dialog::backdrop {
+  background: rgba(9, 9, 9, 0.42);
+}
+
+.api-dialog .dialog-shell {
+  padding: 24px;
+}
+
+.api-field {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+  color: var(--ink);
+  font: 700 10px/1.2 var(--mono);
+  text-transform: uppercase;
+}
+
+.api-field input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 13px;
+  color: var(--ink);
+  background: #ffffff;
+  border: 1px solid #a7a7a7;
+  border-radius: 10px;
+  outline: none;
+  font: 500 13px/1.2 var(--sans);
+  text-transform: none;
+}
+
+.api-field input:focus {
+  border-color: var(--signal);
+  box-shadow: 0 0 0 3px rgba(237, 56, 51, 0.12);
+}
+
+.api-dialog-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 18px;
+  color: var(--muted);
+  font: 500 10px/1.6 var(--mono);
+}
+
+.api-dialog-note svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  color: #16824b;
+}
+
+@media (max-width: 760px) {
+  .api-dialog .dialog-shell {
+    padding: 20px 16px;
+  }
+
+  .api-dialog .dialog-actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .api-dialog .dialog-actions .button {
+    width: 100%;
+    min-height: 50px;
+  }
+}

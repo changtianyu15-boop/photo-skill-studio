@@ -15,6 +15,26 @@ const uploadImage = multer({
 const uploadPackage = multer({ storage: multer.memoryStorage(), limits: { fileSize: 8 * 1024 * 1024, files: 1 } });
 const allowedSizes = new Set(["1024x1792", "1024x1536", "1024x1280"]);
 
+function requestConfig(request) {
+  const apiKey = String(request.get("x-image-api-key") || "").trim().slice(0, 200);
+  const baseUrlHeader = String(request.get("x-image-base-url") || "").trim().slice(0, 500);
+  const modelHeader = String(request.get("x-image-model") || "").trim().slice(0, 100);
+  let baseUrl = config.baseUrl;
+  if (baseUrlHeader) {
+    let parsed;
+    try { parsed = new URL(baseUrlHeader); } catch { throw new Error("图片接口地址无效。"); }
+    if (!["http:", "https:"].includes(parsed.protocol)) throw new Error("图片接口地址必须使用 HTTP 或 HTTPS。");
+    baseUrl = parsed.toString().replace(/\/$/, "");
+  }
+  return {
+    ...config,
+    apiKey: apiKey || config.apiKey,
+    baseUrl,
+    model: modelHeader || config.model,
+    requestApiKey: Boolean(apiKey),
+  };
+}
+
 export function createApp() {
   const app = express();
   app.disable("x-powered-by");
@@ -26,10 +46,18 @@ export function createApp() {
   });
   app.use(express.json({ limit: "200kb" }));
 
-  app.get("/api/health", (_request, response) => {
+  app.get("/api/health", (request, response, next) => {
+    let requestSettings;
+    try { requestSettings = requestConfig(request); } catch (error) { return next(error); }
     let upstream = "未配置";
-    try { upstream = new URL(config.baseUrl).host; } catch { /* keep fallback */ }
-    response.json({ ok: true, configured: Boolean(config.apiKey), model: config.model, upstream });
+    try { upstream = new URL(requestSettings.baseUrl).host; } catch { /* keep fallback */ }
+    response.json({
+      ok: true,
+      configured: Boolean(requestSettings.apiKey),
+      source: requestSettings.requestApiKey ? "session" : "server",
+      model: requestSettings.model,
+      upstream,
+    });
   });
 
   app.get("/api/skills", async (_request, response, next) => {
@@ -60,7 +88,7 @@ export function createApp() {
       if (!skill) return response.status(404).json({ error: "找不到所选 Skill。" });
       const size = allowedSizes.has(request.body.size) ? request.body.size : skill.defaultSize;
       const note = String(request.body.note || "").trim().slice(0, 500);
-      const result = await generateImage({ config, skill, image: request.file, size, note });
+      const result = await generateImage({ config: requestConfig(request), skill, image: request.file, size, note });
       response.status(201).json({ result });
     } catch (error) { next(error); }
   });

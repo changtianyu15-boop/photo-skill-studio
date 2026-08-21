@@ -18,6 +18,7 @@
     <p class="topbar-route" aria-label="Current route">IMAGE EDITORIAL SYSTEM / 01</p>
     <div class="topbar-actions">
       <div class="api-state" id="apiState" role="status"><span class="status-dot" aria-hidden="true"></span><span>正在检查接口</span></div>
+      <button class="button button-secondary" id="openApiSettings" type="button" aria-label="配置图片接口"><i data-lucide="key-round" aria-hidden="true"></i><span aria-hidden="true">[</span><span>API SETTINGS</span><span aria-hidden="true">]</span></button>
       <button class="button button-secondary" id="openInstall" type="button"><i data-lucide="package-plus" aria-hidden="true"></i><span aria-hidden="true">[</span><span>INSTALL SKILL</span><span aria-hidden="true">]</span></button>
     </div>
   </header>
@@ -92,6 +93,18 @@
       <div class="results-grid" id="resultsGrid" aria-live="polite"></div>
     </section>
   </main>
+
+  <dialog class="api-dialog" id="apiDialog" aria-labelledby="apiTitle">
+    <form method="dialog" class="dialog-shell" id="apiForm">
+      <header class="dialog-heading"><div><p class="section-eyebrow">IMAGE PROVIDER</p><h2 id="apiTitle">[ API / SETTINGS ]</h2></div><button class="icon-button" value="cancel" aria-label="关闭接口设置" type="submit"><i data-lucide="x" aria-hidden="true"></i></button></header>
+      <p class="dialog-copy">填写你自己的 OpenAI 兼容图片接口。Key 只保存在当前浏览器会话，并通过 HTTPS 请求发送，不会写入 GitHub。</p>
+      <label class="api-field"><span>API KEY</span><input id="apiKeyInput" type="password" autocomplete="off" placeholder="sk-…"></label>
+      <label class="api-field"><span>BASE URL</span><input id="apiBaseUrlInput" type="url" autocomplete="url" placeholder="https://example.com/v1"></label>
+      <label class="api-field"><span>IMAGE MODEL</span><input id="apiModelInput" type="text" autocomplete="off" placeholder="gpt-image-2"></label>
+      <p class="api-dialog-note"><i data-lucide="shield-check" aria-hidden="true"></i><span>关闭页面或清理会话后，浏览器中的临时 Key 会自动清除。</span></p>
+      <div class="dialog-actions"><button class="button button-secondary" id="clearApiSettings" type="button">清除本机会话 Key</button><button class="button button-primary" id="saveApiSettings" type="button"><i data-lucide="check" aria-hidden="true"></i><span>保存并检查</span></button></div>
+    </form>
+  </dialog>
 
   <dialog class="install-dialog" id="installDialog" aria-labelledby="installTitle">
     <form method="dialog" class="dialog-shell" id="installForm">
