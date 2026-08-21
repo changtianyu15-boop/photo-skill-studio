@@ -107,9 +107,15 @@ export async function generateImage({ config, skill, image, size, note = "" }) {
   const filename = `${Date.now()}-${skill.id}-${randomUUID().slice(0, 8)}.${ext}`;
   await fs.writeFile(path.join(config.generatedDir, filename), generated.buffer);
 
+  // Netlify Functions use ephemeral storage. Return the image inline there so
+  // the result remains usable after the invocation ends.
+  const url = process.env.NETLIFY === "true"
+    ? `data:${generated.mimeType};base64,${generated.buffer.toString("base64")}`
+    : `/generated/${encodeURIComponent(filename)}`;
+
   return {
     filename,
-    url: `/generated/${encodeURIComponent(filename)}`,
+    url,
     skill: { id: skill.id, name: skill.name },
     size,
   };

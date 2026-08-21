@@ -1,6 +1,16 @@
 [build]
   publish = "public"
 
+[functions]
+  directory = "netlify/functions"
+  included_files = ["skills/**"]
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
