@@ -7,9 +7,17 @@ import dotenv from "dotenv";
 const sourceUrl = import.meta?.url;
 const here = sourceUrl ? path.dirname(fileURLToPath(sourceUrl)) : process.cwd();
 const bundledRoot = process.env.LAMBDA_TASK_ROOT || process.cwd();
-export const projectRoot = process.env.NETLIFY === "true"
-  ? bundledRoot
-  : path.resolve(here, "..");
+const rootCandidates = [
+  process.env.PHOTO_SKILL_ROOT,
+  bundledRoot,
+  process.cwd(),
+  path.resolve(here, ".."),
+  path.resolve(here, "../.."),
+  "/var/task",
+  "/var",
+].filter(Boolean);
+const detectedRoot = rootCandidates.find((root) => fs.existsSync(path.join(root, "skills")));
+export const projectRoot = detectedRoot || (process.env.NETLIFY === "true" ? bundledRoot : path.resolve(here, ".."));
 
 function loadEnvFile(filePath) {
   if (!fs.existsSync(filePath)) return;
