@@ -8,6 +8,7 @@ const state = {
   activeGenerations: 0,
   runFailed: false,
   apiConfigured: false,
+  activeFlowStep: "upload",
 };
 
 const elements = {
@@ -43,6 +44,13 @@ const elements = {
   heroStatus: document.querySelector("#heroStatus"),
   sectionStatus: document.querySelector("#sectionStatus"),
   generateLabel: document.querySelector("#generateLabel"),
+  flowNav: document.querySelector(".flow-nav"),
+  flowSteps: [...document.querySelectorAll("[data-step-target]")],
+  flowStages: [...document.querySelectorAll("[data-flow-step]")],
+  continueToSkills: document.querySelector("#continueToSkills"),
+  backToUpload: document.querySelector("#backToUpload"),
+  continueToGenerate: document.querySelector("#continueToGenerate"),
+  backToSkills: document.querySelector("#backToSkills"),
 };
 
 const resultStatusLabels = {
@@ -122,6 +130,34 @@ function setRunState(status) {
   for (const node of [elements.hero, elements.meta, elements.narrative]) {
     if (node) node.dataset.runState = stateValue;
   }
+}
+
+function isCompactFlow() {
+  return window.matchMedia?.("(max-width: 760px)").matches ?? false;
+}
+
+function showFlowStep(step, { scroll = true } = {}) {
+  const validSteps = new Set(["upload", "skills", "generate"]);
+  if (!validSteps.has(step)) return;
+  state.activeFlowStep = step;
+  for (const button of elements.flowSteps) {
+    const active = button.dataset.stepTarget === step;
+    button.classList.toggle("is-active", active);
+    button.toggleAttribute("aria-current", active);
+    if (!active) button.removeAttribute("aria-current");
+  }
+  for (const stage of elements.flowStages) {
+    stage.hidden = isCompactFlow() && stage.dataset.flowStep !== step;
+  }
+  if (scroll && isCompactFlow()) {
+    const targetStage = elements.flowStages.find((stage) => stage.dataset.flowStep === step);
+    targetStage?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  refreshIcons();
+}
+
+function syncFlowLayout() {
+  showFlowStep(state.activeFlowStep, { scroll: false });
 }
 
 async function readJson(response) {
@@ -222,6 +258,8 @@ function updateSelectionUi() {
   }
   elements.toggleAll.textContent = count === state.skills.length ? "取消全选" : "全部选择";
   elements.generateButton.disabled = !state.file || count === 0 || state.running || !state.apiConfigured;
+  if (elements.continueToSkills) elements.continueToSkills.disabled = !state.file;
+  if (elements.continueToGenerate) elements.continueToGenerate.disabled = !state.file || count === 0;
 }
 
 function setFile(file) {
@@ -240,6 +278,7 @@ function setFile(file) {
   elements.uploadEmpty.hidden = true;
   elements.sourceFile.textContent = `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB`;
   updateSelectionUi();
+  showFlowStep("skills");
 }
 
 function createResultCard(skill, status, payload = {}) {
@@ -412,8 +451,26 @@ elements.packageInput?.addEventListener("change", () => {
 });
 elements.installButton?.addEventListener("click", installPackage);
 
+function navigateFlowStep(step) {
+  if (step === "skills" && !state.file) return showToast("请先上传一张照片。");
+  if (step === "generate" && (!state.file || state.selected.size === 0)) {
+    return showToast(state.file ? "至少选择一个 Skill。" : "请先上传一张照片。");
+  }
+  showFlowStep(step);
+}
+
+for (const button of elements.flowSteps) {
+  button.addEventListener("click", () => navigateFlowStep(button.dataset.stepTarget));
+}
+elements.continueToSkills?.addEventListener("click", () => navigateFlowStep("skills"));
+elements.backToUpload?.addEventListener("click", () => showFlowStep("upload"));
+elements.continueToGenerate?.addEventListener("click", () => navigateFlowStep("generate"));
+elements.backToSkills?.addEventListener("click", () => showFlowStep("skills"));
+window.addEventListener("resize", syncFlowLayout, { passive: true });
+
 if (elements.systemMode) elements.systemMode.textContent = "PARALLEL";
 setRunState("READY");
+syncFlowLayout();
 
 Promise.all([loadHealth(), loadSkills()])
   .catch((error) => showToast(error.message))

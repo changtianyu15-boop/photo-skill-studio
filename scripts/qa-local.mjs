@@ -47,8 +47,12 @@ try {
     page.on("pageerror", (error) => report.consoleErrors.push(`${viewport.name}: ${error.message}`));
 
     await page.goto(targetUrl, { waitUntil: "networkidle", timeout: 20_000 });
-    await page.waitForSelector(".skill-card", { timeout: 10_000 });
+    await page.waitForSelector(".skill-card", { state: "attached", timeout: 10_000 });
     if (sourceImage) await page.locator("#imageInput").setInputFiles(sourceImage);
+    if (viewport.name === "mobile") {
+      await page.locator("#flowStepSkills").click();
+      await page.locator(".skill-card").first().waitFor({ state: "visible", timeout: 10_000 });
+    }
 
     const metrics = await page.evaluate(() => ({
       viewportWidth: window.innerWidth,

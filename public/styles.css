@@ -1586,3 +1586,219 @@ select, textarea { background: #fff; border-color: var(--ink); }
     line-height: 1.07;
   }
 }
+
+/* Compact three-step flow for touch screens. */
+.flow-nav {
+  width: min(100% - 40px, 760px);
+  min-height: 58px;
+  margin: 18px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.flow-step {
+  min-width: 0;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid transparent;
+  font: 700 10px/1.2 var(--mono);
+  text-transform: uppercase;
+}
+
+.flow-step-number {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.flow-step.is-active {
+  color: var(--paper);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.flow-step.is-active .flow-step-number {
+  color: var(--signal);
+}
+
+[data-flow-step] {
+  scroll-margin-top: 132px;
+}
+
+.flow-connector {
+  width: 28px;
+  height: 1px;
+  flex: 0 0 auto;
+  background: var(--line);
+}
+
+.step-actions {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.step-actions .button {
+  min-height: 48px;
+}
+
+.step-hint {
+  margin-right: auto;
+  color: var(--muted);
+  font: 500 10px/1.5 var(--mono);
+}
+
+.run-section > .button-secondary {
+  color: var(--paper);
+  border-color: #555;
+}
+
+.run-section > .button-secondary:hover:not(:disabled) {
+  color: var(--ink);
+  background: var(--paper);
+}
+
+@media (max-width: 760px) {
+  .topbar {
+    height: auto;
+    min-height: 60px;
+    padding: 10px 16px;
+    gap: 10px;
+  }
+
+  .topbar-route,
+  .api-state {
+    display: none;
+  }
+
+  .topbar-actions {
+    margin-left: auto;
+  }
+
+  .topbar-actions > .button-secondary {
+    width: 42px;
+    min-width: 42px;
+    padding: 0;
+    font-size: 0;
+  }
+
+  .topbar-actions > .button-secondary svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .topbar-actions > .button-secondary span:not(:first-child) {
+    display: none;
+  }
+
+  .flow-nav {
+    position: sticky;
+    top: 60px;
+    z-index: 15;
+    width: 100%;
+    min-height: 64px;
+    margin: 0;
+    padding: 8px 12px;
+    justify-content: stretch;
+    gap: 4px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .flow-step {
+    flex: 1 1 0;
+    min-height: 46px;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px 4px;
+    font-size: 9px;
+  }
+
+  .flow-step-number {
+    font-size: 10px;
+  }
+
+  .flow-connector {
+    width: 10px;
+  }
+
+  .workspace {
+    padding: 0 16px 44px;
+  }
+
+  .source-section,
+  .skills-section,
+  .results-section {
+    padding-bottom: 42px;
+  }
+
+  .source-layout {
+    gap: 18px;
+  }
+
+  .upload-zone,
+  .upload-zone img,
+  .upload-empty {
+    min-height: min(72vh, 390px);
+  }
+
+  .upload-empty {
+    padding: 24px 16px;
+  }
+
+  .generation-settings {
+    border-top: 1px solid var(--ink);
+  }
+
+  .field-grow textarea {
+    min-height: 112px;
+  }
+
+  .step-actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .step-actions .button {
+    width: 100%;
+    min-height: 52px;
+  }
+
+  .step-hint {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+  }
+
+  .run-section {
+    margin-top: 0;
+    padding: 20px 16px;
+    gap: 12px;
+  }
+
+  .run-section > .button-secondary,
+  .run-section > .button-primary {
+    width: 100%;
+    min-height: 52px;
+  }
+
+  .results-section {
+    border-bottom: 0;
+  }
+
+  .results-empty {
+    min-height: 260px;
+  }
+}

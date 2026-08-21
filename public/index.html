@@ -22,8 +22,22 @@
     </div>
   </header>
 
+  <nav class="flow-nav" aria-label="生成流程">
+    <button class="flow-step is-active" id="flowStepUpload" type="button" data-step-target="upload" aria-current="step">
+      <span class="flow-step-number">01</span><span class="flow-step-label">上传图片</span>
+    </button>
+    <span class="flow-connector" aria-hidden="true"></span>
+    <button class="flow-step" id="flowStepSkills" type="button" data-step-target="skills">
+      <span class="flow-step-number">02</span><span class="flow-step-label">选择 Skill</span>
+    </button>
+    <span class="flow-connector" aria-hidden="true"></span>
+    <button class="flow-step" id="flowStepGenerate" type="button" data-step-target="generate">
+      <span class="flow-step-number">03</span><span class="flow-step-label">生成结果</span>
+    </button>
+  </nav>
+
   <main class="workspace">
-    <section class="source-section" aria-labelledby="sourceTitle">
+    <section class="source-section" id="uploadStage" data-flow-step="upload" aria-labelledby="sourceTitle">
       <header class="hero-intro" id="hero">
         <p class="hero-kicker">01. SOURCE / IMAGE</p>
         <h2 class="hero-title" id="sourceTitle">MAKE THE SOURCE VISIBLE</h2>
@@ -41,29 +55,38 @@
           <div class="source-file" id="sourceFile" role="status"><i data-lucide="file-image" aria-hidden="true"></i><span>尚未选择文件</span></div>
         </div>
       </div>
+      <div class="step-actions step-actions-upload">
+        <span class="step-hint">上传后进入下一步选择风格</span>
+        <button class="button button-primary" id="continueToSkills" type="button"><i data-lucide="arrow-right" aria-hidden="true"></i><span>选择 Skill</span></button>
+      </div>
     </section>
 
-    <section class="narrative-lead" id="narrative" aria-label="Editorial premise">
+    <section class="narrative-lead" id="narrative" data-flow-step="upload" aria-label="Editorial premise">
       <p>每张照片都有一个尚未被看见的版本。把原始光线交给风格系统，让编辑成为一种保留。</p>
       <p class="lead-note">A PHOTO EDITORIAL ENGINE FOR SOURCE-FAITHFUL EXPERIMENTS.</p>
     </section>
 
-    <section class="system-band" aria-label="System status">
+    <section class="system-band" data-flow-step="skills" aria-label="System status">
       <dl class="system-data"><div class="system-cell"><dt>MODEL</dt><dd id="systemModel">IMAGE</dd></div><div class="system-cell"><dt>MODE</dt><dd id="systemMode">PARALLEL</dd></div><div class="system-cell"><dt>SELECTED</dt><dd id="systemCount">00 / 00</dd></div></dl>
       <p class="system-statement">PHOTO / STYLE / MEMORY</p>
     </section>
 
-    <section class="skills-section" aria-labelledby="skillsTitle">
+    <section class="skills-section" id="skillsStage" data-flow-step="skills" aria-labelledby="skillsTitle">
       <header class="section-heading"><div><p class="section-eyebrow">02. STYLE / MATRIX</p><h2 id="skillsTitle">SELECT / EDITION</h2></div><button class="text-button" id="toggleAll" type="button">取消全选</button></header>
       <div class="skill-grid" id="skillGrid" aria-live="polite"></div>
+      <div class="step-actions">
+        <button class="button button-secondary" id="backToUpload" type="button"><i data-lucide="arrow-left" aria-hidden="true"></i><span>返回上传</span></button>
+        <button class="button button-primary" id="continueToGenerate" type="button"><span>进入生成</span><i data-lucide="arrow-right" aria-hidden="true"></i></button>
+      </div>
     </section>
 
-    <section class="run-section" aria-label="生成控制">
+    <section class="run-section" id="generateStage" data-flow-step="generate" aria-label="生成控制">
       <div class="run-summary"><strong id="selectionCount">0 个 Skill</strong><span>MULTI-SKILL IMAGE EDIT <span aria-hidden="true">/</span> <span id="generateCount">00 / 00</span> <span aria-hidden="true">/</span> <span id="runState">READY</span></span></div>
+      <button class="button button-secondary" id="backToSkills" type="button"><i data-lucide="arrow-left" aria-hidden="true"></i><span>调整 Skill</span></button>
       <button class="button button-primary" id="generateButton" type="button" aria-label="生成所选风格图像" disabled><i data-lucide="wand-sparkles" aria-hidden="true"></i><span class="button-bracket" aria-hidden="true">[</span><span id="generateLabel">GENERATE</span><span class="button-bracket" aria-hidden="true">]</span></button>
     </section>
 
-    <section class="results-section" aria-labelledby="resultsTitle">
+    <section class="results-section" data-flow-step="generate" aria-labelledby="resultsTitle">
       <header class="section-heading"><div><p class="section-eyebrow">03. OUTPUT / ARCHIVE</p><h2 id="resultsTitle">GENERATED / EDITIONS</h2></div><button class="text-button" id="clearResults" type="button" hidden>清空结果</button></header>
       <div class="results-empty" id="resultsEmpty"><i data-lucide="panels-top-left" aria-hidden="true"></i><strong>NO OUTPUT YET</strong><p>等待第一批图像。</p></div>
       <div class="results-grid" id="resultsGrid" aria-live="polite"></div>
